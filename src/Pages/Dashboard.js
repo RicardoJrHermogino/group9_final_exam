@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBox, faBoxes, faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBoxOpen, faCubes,faChartBar, faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Dashboard = () => {
   return (
@@ -9,27 +9,28 @@ const Dashboard = () => {
           <div className="row ">
             <div className="col-md-6 col-lg-3 col-sm-10 mb-4 ">
               <div className="p-3" style={{ borderRadius: '20px', minHeight: '130px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.05)' }}>
-                <FontAwesomeIcon icon={faBox} className="mb-2" style={{ fontSize: '23px' }} />
-                <span className="d-block mb-" style={{ fontSize: '10px' }}>Add, update, and delete products</span>
+                <FontAwesomeIcon icon={faBoxOpen} className="mb-2" style={{ fontSize: '23px' }} />
+                <span className="d-block mb-" style={{ fontSize: '10px' }}>Add, Update, and Delete products</span>
                 <b className="d-block" style={{ fontSize: '19px' }}>Product Management</b>
               </div>
             </div>
             <div className="col-md-6 col-lg-3 col-sm-10 mb-4 ">
               <div className="p-3" style={{  borderRadius: '20px', minHeight: '130px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.05)' }}>
-                <FontAwesomeIcon icon={faExchangeAlt} className="mb-2" style={{ fontSize: '23px' }} />
-                <b className="d-block" style={{ fontSize: '12 px' }}><span>Category</span><br/> <span>Management</span></b>
+                <FontAwesomeIcon icon={faChartBar} className="mb-2" style={{ fontSize: '23px' }} />
+                <span className="d-block mb-" style={{ fontSize: '10px' }}>Add, Update, and Delete Categories.</span>
+                <b className="d-block" style={{ fontSize: '19px' }}>Category Management</b>
               </div>
             </div>
             <div className="col-md-6 col-lg-3 col-sm-10 mb-4 ">
               <div className="p-3" style={{  borderRadius: '20px', minHeight: '130px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.05)' }}>
-                <FontAwesomeIcon icon={faBoxes} className="mb-2" style={{ fontSize: '23px' }} />
-                <span className="d-block" style={{ fontSize: '10px' }}>Add, update, and delete products</span>
+                <FontAwesomeIcon icon={faCubes} className="mb-2" style={{ fontSize: '23px' }} />
+                <span className="d-block" style={{ fontSize: '10px' }}>Edit product stocks</span>
                 <b className="d-block" style={{ fontSize: '19px' }}>Stocks Management</b>
               </div>
             </div>
             <div className="col-md-6 col-lg-3 col-sm-10 mb-4 ">
               <div className="p-3" style={{  borderRadius: '20px', minHeight: '130px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.05)' }}>
-                <FontAwesomeIcon icon={faBoxes} className="mb-2" style={{ fontSize: '23px' }} />
+                <FontAwesomeIcon icon={faExchangeAlt} className="mb-2" style={{ fontSize: '23px' }} />
                 <span className="d-block" style={{ fontSize: '10px' }}>Add, update, and delete products</span>
                 <b className="d-block" style={{ fontSize: '19px' }}>Transactions Management</b>
               </div>

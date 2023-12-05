@@ -59,8 +59,8 @@
                   </option>
                 ))}
               </select>
-            </div>
-        </div>
+              </div>
+          </div>
       
 
 
@@ -83,15 +83,8 @@
                           <tr key={product.id}>
                             <td>{product.id}</td>
                             <td>{product.name}</td>
-                            <td>{product.stock}</td>
+                            <td style={{ fontWeight:'bolder'}}>{product.stock}</td>
                             <td>
-                              <input
-                                type="number"
-                                className="form-control"
-                                value={stockUpdates[product.id] || ''}
-                                onChange={(e) => handleUpdateStock(product.id, parseFloat(e.target.value))}
-                                placeholder="Add Stock"
-                              />
                               <button className="btn btn-sm btn-secondary" style={{ borderRadius: '15px', width: '30%' }}>Edit</button>
                             </td>
                           </tr>

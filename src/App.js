@@ -5,13 +5,16 @@ import Style from './Style.css';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faCubes, faExchangeAlt, faChartBar, faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCubes, faExchangeAlt, faChartBar, faFileAlt, faBoxOpen} from '@fortawesome/free-solid-svg-icons';
 import Dashboard from './Pages/Dashboard';
 import ProductManagement from './Pages/ProductManagement';
 import CategoryManagement from './Pages/CategoryManagement';
 import TransactionManagement from './Pages/TransactionManagement';
 import StockManagement from './Pages/StockManagement';
 import TransactionReport from './Pages/TransactionReport';
+
+import { Modal, Button } from 'react-bootstrap';
+
 
 // import React, { useState } from 'react';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -40,6 +43,8 @@ function App() {
   const [products, setProducts] = useState(initialProducts);
   const [transactions, setTransactions] = useState([]);
   const [categories, setCategories] = useState(initialCategories);
+  const [showModal, setShowModal] = useState(false);
+
 
   const addProduct = (newProduct) => {
     setProducts([...products, newProduct]);
@@ -82,31 +87,43 @@ function App() {
 
     setCategories(categories.filter((c) => c !== category));
   };
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
   
 
   return (
     <>
         <div style={{ width: '100%', height: '18%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.10)' }}>
-                  <div className='row border py-2'>
-                  <div className='col-1 border' style={{width:'100px'}} >
+                  <div className='row py-2'>
+                    <div className='col-1 ' style={{width:'100px'}} >
 
                     </div>
-                    <div className='col-9 border' >
+                    <div className='col-9' >
                       <h2 style={{fontWeight:'bolder'}}>Group 9</h2>
                     </div>
                     <div className='col-2' >
-                      <div className='border '>
-                        <span className='ms-5'>Dashboard</span>
+                      <div className='py-1'  onClick={toggleModal} style={{cursor: 'pointer' , width:'85%',borderRadius:'15px', border: 'solid black 1px'}}>
+                      <FontAwesomeIcon className='ms-3' icon={faFileAlt}style={{ color: 'black' }} />
+                        <span style={{fontSize:'13px'}} className='ms-3'>Transaction Reports</span>
                       </div>
                     </div>
 
                   </div>
-                  <div className='row border'>
-                  <div className='col-2 py-' >
-                      <div className='border'>
-                        Transaction Reports
-                      </div>
-                    </div>
+
+
+                  <div className='row py-1' style={{borderTop: 'solid gray 1px'}}>
+                      <div className='col-1' style={{width:'100px'}} >
+
+                        </div>
+                        <div className='col-9' >
+                        </div>
+                        <div className='col-2' >
+
+                            <span className='ms-3 ' style={{fontSize:'15px'}}>Filter  Products Category</span>
+
+                        </div>
                   </div>
         </div>
 
@@ -118,10 +135,18 @@ function App() {
               variant="pills"
               style={{ width: '90px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'}}
             >
-              <Tab eventKey="dashboard" title={<FontAwesomeIcon icon={faHome} />} >
+              <Tab eventKey="dashboard" title={
+                <div className="d-flex align-items-center mb-3 mt-5">
+                    <FontAwesomeIcon icon={faHome} style={{ color: 'black' }} />
+                </div>
+              }>
                 <Dashboard />
               </Tab>
-              <Tab eventKey="products" title={<FontAwesomeIcon icon={faCubes} />} >
+              <Tab eventKey="products" title={
+                <div className="d-flex align-items-center mb-3 mt-4">
+              <FontAwesomeIcon icon={faBoxOpen} style={{ color: 'black' }}/>
+                </div>
+                } >
                 <ProductManagement 
                   products={products}
                   categories={categories}
@@ -130,20 +155,56 @@ function App() {
                   updateProduct={updateProduct}
                   updateStock={updateStock}/>
               </Tab>
-              <Tab eventKey="category" title={<FontAwesomeIcon icon={faCubes} />} >
+              <Tab eventKey="category" title={
+              <div className="d-flex align-items-center mb-3 mt-4">
+              <FontAwesomeIcon icon={faChartBar} style={{ color: 'black' }} />
+              </div>
+              } >
                 <CategoryManagement categories={categories} addCategory={addCategory} deleteCategory={deleteCategory}/>
               </Tab>
-              <Tab eventKey="transaction" title={<FontAwesomeIcon icon={faExchangeAlt} />} >
-                <TransactionManagement products={products} updateStock={updateStock} completeTransaction={completeTransaction}/>
-              </Tab>
-              <Tab eventKey="Stock" title={<FontAwesomeIcon icon={faCubes} />}>
+              <Tab eventKey="Stock" title={
+              <div className="d-flex align-items-center mb-3 mt-4">
+              <FontAwesomeIcon icon={faCubes} style={{ color: 'black' }}/>
+              </div>
+              }>
                 <StockManagement products={products} updateStock={updateStock}/>
               </Tab>
-              <Tab eventKey="report" title={<FontAwesomeIcon icon={faFileAlt} />}>
+              <Tab eventKey="transaction" title={
+              <div className="d-flex align-items-center mb-3 mt-4">
+              <FontAwesomeIcon icon={faExchangeAlt} style={{ color: 'black' }}/>
+              </div>
+              } >
+                <TransactionManagement products={products} updateStock={updateStock} completeTransaction={completeTransaction}/>
+              </Tab>
+              
+              <Tab eventKey="report" title={
+              <div className="d-flex align-items-center mb-3 mt-4">
+              <FontAwesomeIcon icon={faFileAlt}style={{ color: 'black' }} />
+              </div>
+              }>
                 <TransactionReport transactions={transactions}/>
               </Tab>
             </Tabs>
         </div>
+
+
+        <Modal
+          show={showModal}
+          onHide={toggleModal}
+          dialogClassName="modal-dialog-scrollable modal-dialog-centered modal-fullscreen"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title></Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <TransactionReport transactions={transactions} />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={toggleModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
 
 
