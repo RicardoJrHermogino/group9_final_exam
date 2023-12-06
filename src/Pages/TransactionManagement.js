@@ -114,13 +114,13 @@
               
               <div className="col-1 justify-content-end align-items-end mb-3" onClick={toggleModal} style={{ cursor: 'pointer' }}>
                 <div>
-                  <FontAwesomeIcon className='ms-5' style={{ height: '26px' }} icon={faShoppingCart} />
+                  <FontAwesomeIcon className='ms-5' style={{ height: '25px' }} icon={faShoppingCart} />
                 </div>
               </div>
               
               
               
-              <div className="col-3 justif  y-content-end align-items-end mb-3">
+              <div className="col-3 justify-content-end align-items-end mb-3">
                     <div style={{width:'79%'}}>
                           <label htmlFor="categoryFilter" className="form-label">
                             Filter by Category:
@@ -139,7 +139,7 @@
                             ))}
                           </select>
                     </div>
-            </div>
+              </div>
 
             
         </div>

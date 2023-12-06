@@ -1,24 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from 'react-bootstrap';
 
-const CategoryManagement = ({ categories, addCategory, deleteCategory }) => {
+
+const CategoryManagement = ({ onSendArrayToCateg, categories, setCategories, addCategory, deleteCategory }) => {
 
     const [newCategory, setNewCategory] = useState('');
+    const [newCategName, setNewCategName] = useState('')
+    const [categToEdit, setCategToEdit] = useState(-1)
 
+    useEffect(() => {
+      onSendArrayToCateg(categories);
+    }, [categories, onSendArrayToCateg]);
+    
     const handleAddCategory = () => {
       if (newCategory.trim() !== '') {
         addCategory(newCategory.trim());
         setNewCategory('');
       }
     };
-  
+    
     const handleDeleteCategory = (category) => {
       if (window.confirm(`Are you sure you want to delete the category "${category}"?`)) {
         deleteCategory(category);
       }
     };
-  
+    function handleInputChange(e) {
+      setNewCategName(e.target.value)
+    }
+    function editfunc(cat){
+      const indexNo = categories.findIndex(cate=> cate === cat)
+      const updatedCatList = categories.map((cat,index)=>{
+        if(indexNo === index){
+          cat = newCategName
 
+        }
+        return cat
+      })
+      setCategories(updatedCatList)
+      setCategToEdit(-1)
+      setNewCategName('')
+    }
+    
 
   return (
     <>
@@ -69,17 +92,29 @@ const CategoryManagement = ({ categories, addCategory, deleteCategory }) => {
 
                         <tbody>
                         {categories.map((category, index) => (
+                        categToEdit === index  ? 
+                        <tr key={index}>
+                            <td>
+                              <input value={newCategName} onChange={e=>handleInputChange(e)}/>
+                            </td>
+                            <td>
+                            <button onClick={() => editfunc(category)}>Save</button>
+                            </td>
+                        </tr>
+                        :
+                           
                         <tr key={index}>
                             <td>{category}</td>
                             <td>
-                            <button className="btn btn-sm btn-secondary" style={{ borderRadius: '15px', width: '30%' }}>Edit</button>
+                            <button onClick={()=>setCategToEdit(index)} className="btn btn-sm btn-secondary" style={{ borderRadius: '15px', width: '30%' }}>Edit</button>
                             <button onClick={() => handleDeleteCategory(category)} className="btn btn-sm btn-secondary" 
                             style={{ borderRadius: '15px', width: '30%' }}>Delete</button>
                             </td>
                         </tr>
                         ))}
                         </tbody>
-                        
+
+                       
                     </table>
                 </div>
         </div>

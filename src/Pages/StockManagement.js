@@ -34,38 +34,39 @@
       <>
 
       <div className="container-fluid justify-content-center align-items-center mt-4" style={{ height: '100vh', width:'85vw', marginLeft:'5%'}}>
-          <div className="row text-center">
+          <div className="row  text-center">
               <div className="col">
                   <h2 style={{fontWeight:'bold'}}>Stocks Management</h2>
               </div>
           </div>
 
-
-          <div className="row border justify-content-end align-items-end mt-4">
-              <div className="col-5 justify-content-end align-items-end mb-3">
-              <label htmlFor="categoryFilter" className="form-label">
-                Filter by Category:
-              </label>
-              <select
-                id="categoryFilter"
-                className="form-select"
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-              >
-                <option value="">All Categories</option>
-                {Array.from(new Set(products.map((product) => product.category))).map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
+          <div className="row  justify-content-end align-items-end mt-2" style={{fontSize:'14px'}}>
+          <div className="col-3  justify-content-end align-items-end mb-3">
+                    <div style={{width:'79%'}}>
+                          <label htmlFor="categoryFilter" className="form-label">
+                            Filter by Category:
+                          </label>
+                          <select style={{fontSize:'12px', border:'solid black 1px'}}
+                            id="categoryFilter"
+                            className="form-select"
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                          >
+                            <option value="">All Categories</option>
+                            {Array.from(new Set(products.map((product) => product.category))).map((category) => (
+                              <option key={category} value={category}>
+                                {category}
+                              </option>
+                            ))}
+                          </select>
+                    </div>
               </div>
           </div>
       
 
 
-          <div className="row mt-5">
-                  <div className="col-lg-10 col-md-8 col-sm-6 py-4 mx-auto " style={{backgroundColor:'#F2F2F2', borderRadius: '25px', width: '89%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'  }}>
+          <div className="row mt-1">
+                  <div className="col-lg-10 col-md-8 col-sm-6 py-4 mx-auto " style={{ borderRadius: '25px', width: '89%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'  }}>
                       <div className='table-responsive'>
                       <table className=' text-center' style={{width:'100%', fontSize:'90%'}}>
 

@@ -45,9 +45,17 @@ function App() {
   const [categories, setCategories] = useState(initialCategories);
   const [showModal, setShowModal] = useState(false);
 
+  const handleCatList = (arrayFromAddCateg) => {
+    setCategories(arrayFromAddCateg);
+  };
 
   const addProduct = (newProduct) => {
-    setProducts([...products, newProduct]);
+    if (newProduct.price > 0 && newProduct.stock > 0){
+      setProducts([...products, newProduct]);
+    }
+    else{
+      alert('Please input valid price or stocks')
+    }
   };
 
   const deleteProduct = (productId) => {
@@ -77,6 +85,7 @@ function App() {
     setCategories([...categories, newCategory]);
   };
 
+  console.log(categories)
   const deleteCategory = (category) => {
     const isCategoryUsed = products.some((product) => product.category === category);
 
@@ -160,7 +169,7 @@ function App() {
               <FontAwesomeIcon icon={faChartBar} style={{ color: 'black' }} />
               </div>
               } >
-                <CategoryManagement categories={categories} addCategory={addCategory} deleteCategory={deleteCategory}/>
+                <CategoryManagement onSendArrayToCateg={handleCatList} categories={categories} setCategories={setCategories} addCategory={addCategory} deleteCategory={deleteCategory}/>
               </Tab>
               <Tab eventKey="Stock" title={
               <div className="d-flex align-items-center mb-3 mt-4">
