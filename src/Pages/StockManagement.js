@@ -23,17 +23,32 @@
     };
 
     const applyStockUpdates = () => {
-      const updatedProducts = products.map((product) => {
-        const updatedStock = stockUpdates[product.id] !== undefined ? stockUpdates[product.id] : product.stock;
-        return {
-          ...product,
-          stock: updatedStock,
-        };
-      });
+      // Check if any stock input is blank or empty or less than 0
+      for (const productId in stockUpdates) {
+        const stockValue = stockUpdates[productId];
     
+        if (
+          stockValue === undefined ||
+          stockValue === null ||
+          isNaN(stockValue) ||
+          stockValue < 0
+        ) {
+          // Show an alert if any input is not a valid non-negative number
+          alert('Please enter a valid non-negative stock value.');
+          return; // Stop further execution of the function
+        }
+      }
+    
+      // If all inputs are valid, proceed with applying the stock updates
+      const updatedProducts = products.map((product) => ({
+        ...product,
+        stock: stockUpdates[product.id] !== undefined ? stockUpdates[product.id] : product.stock,
+      }));
+    
+      // Update the stock and reset state
       updateStock(updatedProducts);
       setStockUpdates({});
-      handleModalClose();
+      handleModalClose(); // Close the modal
     };
 
     const filteredProducts = selectedCategory
@@ -122,9 +137,10 @@
                 type="number"
                 id="newStock"
                 className="form-control"
-                value={stockUpdates[selectedProduct?.id] || ''}
-                onChange={(e) => handleUpdateStock(selectedProduct?.id, parseInt(e.target.value, 10))}
+                value={stockUpdates[selectedProduct?.id] !== undefined ? stockUpdates[selectedProduct?.id] : ''}
+                onChange={(e) => handleUpdateStock(selectedProduct?.id, e.target.value === '' ? '' : parseInt(e.target.value, 10))}
               />
+
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleModalClose}>

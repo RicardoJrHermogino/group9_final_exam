@@ -77,7 +77,10 @@ const CategoryManagement = ({ onSendArrayToCateg, categories, setCategories, add
                 <input type="text" className="form-control px-4" id="newCategory"
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value)} 
-                style={{ borderRadius:'15px', border:'solid gray 0.5px'}} required/>
+                style={{ borderRadius:'15px', border:'solid gray 0.5px'}} 
+                placeholder='Enter new category'
+                required/>
+                
             </div>
 
 

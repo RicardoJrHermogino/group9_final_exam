@@ -140,7 +140,7 @@ function App() {
                   </div>
         </div>
 
-        <div className="d-flex" style={{ height: '82vh', flexGrow: 1 }}>
+        <div className="d-flex" style={{ height: '90vh', flexGrow: 1 }}>
         <Tabs
           defaultActiveKey="dashboard"
           id="vertical-tab-example"
