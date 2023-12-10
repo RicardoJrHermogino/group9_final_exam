@@ -6,39 +6,70 @@
 
 
   const ProductManagement = ({ products, categories, addProduct, updateProduct, deleteProduct }) => {
+
+// ----------------------------------------------------------------------------------------------------------------------------
     const [newProduct, setNewProduct] = useState({ name: '', price: '', stock: '', category: '' });
     const [editingProduct, setEditingProduct] = useState(null);
-    const [productID, setProductID] = useState(1);
+    const [productID, setProductID] = useState(4);
+// ----------------------------------------------------------------------------------------------------------------------------
+
+
+// ----------------------------------------------------------------------------------------------------------------------------
+// Dini na part ang pag add san product
 
     const handleAddProduct = () => {
       if (newProduct.name && newProduct.price !== '' && newProduct.stock !== '' && newProduct.category) {
-        let string = 'PROD-GRP9-';
-        let c = string + productID;
-
-        const newProductWithId = { ...newProduct, id: c };
-        addProduct(newProductWithId);
-
-        // Increment product ID for the next product
-        setProductID((prevProductID) => prevProductID + 1);
-        setNewProduct({ name: '', price: '', stock: '', category: '' });
+        // Check for duplicate products
+        const checkDupsProds = products.some(
+          (product) =>
+            product.name === newProduct.name &&
+            product.price === newProduct.price &&
+            product.stock === newProduct.stock &&
+            product.category === newProduct.category
+        );
+    
+        if (!checkDupsProds) {
+                    // ing aasign ang unique ID sa kada panibago na product
+          let string = 'PROD-GRP9-';
+          let c = string + productID;
+          const newProductWithId = { ...newProduct, id: c };
+          addProduct(newProductWithId);
+          
+          // Ing iincrement ang ID para sa mahunod na product na maa-add
+          setProductID((prevProductID) => prevProductID + 1);
+    
+          setNewProduct({ name: '', price: '', stock: '', category: '' });
+        } else {
+          alert("A product you're trying to add is  already exists.");
+        }
       }
     };
-    
+
+
+// ----------------------------------------------------------------------------------------------------------------------------
+
+// ----------------------------------------------------------------------------------------------------------------------------
+    // Ing dedelete ang specific na product base sa kaniya ID
+
       const handleDeleteProduct = (productId) => {
         deleteProduct(productId);
       };
-    
+// ----------------------------------------------------------------------------------------------------------------------------
+
+// ----------------------------------------------------------------------------------------------------------------------------
+      // Ing ing-eedt ang specific na product
       const startEditing = (product) => {
         setEditingProduct({ ...product });
       };
-    
+
+
       const handleUpdateProduct = () => {
         if (editingProduct && editingProduct.name && editingProduct.price !== '' && editingProduct.stock !== '' && editingProduct.category) {
           updateProduct({ ...editingProduct });
           setEditingProduct(null);
         }
       };
-    
+// ----------------------------------------------------------------------------------------------------------------------------    
     return (
       <>
 
@@ -49,54 +80,57 @@
               </div>
           </div>
           
-          <div className="row p-5 mt-4 mx-auto" style={{ backgroundColor:'#F2F2F2', borderRadius: '25px', width: '90%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
+          <div className="row p-5 mt-4 mx-auto" style={{ borderRadius: '25px', width: '90%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
               
               <div className="col-lg-2 col-md-4 col-sm 10 ">
-                  <span>Product ID</span>
+                  <span className='ms-2'>Product ID</span>
                   <input
                     readOnly
                     type="text"
                     id="prodID"
                     className="form-control"
                     value={"PROD-GRP9-" + productID}
-                    style={{ backgroundColor: '#F2F2F2', borderRadius: '15px', border: 'solid gray 0.5px' }}
+                    style={{  borderRadius: '15px', border: 'solid gray 0.5px' }}
                     required
                   />
 
               </div>
 
               <div className="col-lg-2 col-md-4 col-sm 10 ">
-                  <span>Name</span>
-                  <input type="text" id="editProductName" className="form-control"
+                  <span className='ms-2'>Name</span>
+                  <input type="text" id="editProductName" className="form-control px-3"
                   value={newProduct.name}
                   onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-                  style={{backgroundColor:'#F2F2F2', borderRadius:'15px', border:'solid gray 0.5px'}} required/>
+                  placeholder='Product name'
+                  style={{ borderRadius:'15px', border:'solid gray 0.5px'}} required/>
               </div> 
 
               <div className="col-lg-2 col-md-4 col-sm 10 ">
-                  <span>Price</span>
-                  <input type="number" id="productPrice" className="form-control" min={1}
+                  <span className='ms-2'>Price</span>
+                  <input type="number" id="productPrice" className="form-control px-3" min={1}
                   value={newProduct.price}
                   onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) || '' })}
-                  style={{backgroundColor:'#F2F2F2', borderRadius:'15px', border:'solid gray 0.5px'}}/>
+                  placeholder='Product price'
+                  style={{ borderRadius:'15px', border:'solid gray 0.5px'}}/>
               </div>
 
               <div className="col-lg-2 col-md-6 col-sm 10 ">
-                  <span>Stocks</span>
-                  <input type="number" id="productStock" className="form-control" min={1}
+                  <span className='ms-2'>Stocks</span>
+                  <input type="number" id="productStock" className="form-control px-3" min={1}
                   value={newProduct.stock}
                   onChange={(e) => setNewProduct({ ...newProduct, stock: parseFloat(e.target.value) || '' })}
-                  style={{backgroundColor:'#F2F2F2', borderRadius:'15px', border:'solid gray 0.5px'}}/>
+                  placeholder='Product stock'
+                  style={{ borderRadius:'15px', border:'solid gray 0.5px'}}/>
               </div>  
 
               <div className="col-lg-2 col-md-6 col-sm 10 ">
-                  <span>Category</span>
+                  <span className='ms-2'>Category</span>
                   <select
                         className='px-4'
                         id="productCategory"
                         value={newProduct.category}
                         onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
-                        style={{backgroundColor:'#F2F2F2', borderRadius:'15px', width:'100%', height:'38px', border:'solid gray 0.5px'}}
+                        style={{ borderRadius:'15px', width:'100%', height:'38px', border:'solid gray 0.5px'}}
                         required
                   >
                           <option value="" disabled>Select a category</option>
@@ -127,7 +161,7 @@
                     id="prodID"
                     className="form-control"
                     value={"PROD-GRP9-" + productID}
-                    style={{ backgroundColor: '#F2F2F2', borderRadius: '15px', border: 'solid gray 0.5px' }}
+                    style={{  borderRadius: '15px', border: 'solid gray 0.5px' }}
                     required
                   />
                       <label htmlFor="editProductName" className="form-label mt-2">
@@ -223,7 +257,7 @@
 
                           {products.map((product) => (
                               <tr key={product.id}>
-                                  <td>{product.id}</td>
+                                  <td><b>{product.id}</b></td>
                                   <td>{product.name}</td>
                                   <td>₱{product.price}</td>
                                   <td>{product.stock}</td>

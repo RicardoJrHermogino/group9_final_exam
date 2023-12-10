@@ -15,6 +15,11 @@
     const [showModal, setShowModal] = useState(false);
 
     const addToTransaction = (productId, quantity) => {
+      if (parseInt(quantity, 10) < 1) {
+        alert('Please input 1 or greater than 1 quantity to add this product in the cart.');
+        return;
+      }
+    
       const existingProduct = transactions.find((item) => item.id === productId);
     
       if (existingProduct) {
@@ -29,15 +34,15 @@
       } else {
         const productToAdd = products.find((product) => product.id === productId);
     
-        if (productToAdd && productToAdd.stock >= parseInt(quantity, 10) && parseInt(quantity, 10) > 0) {
+        if (productToAdd && productToAdd.stock >= parseInt(quantity, 10)) {
           const updatedTransaction = [...transactions, { ...productToAdd, quantity: parseInt(quantity, 10) }];
           setTransactions(updatedTransaction);
     
           // Clear the quantity input for the added product
           setQuantityInputs((prevInputs) => ({ ...prevInputs, [productId]: '' }));
-          alert('Successfully added to cart')
+          alert('Successfully added to cart');
         } else {
-          alert('Invalid product or insufficient stock!');
+          alert('Invalid input or not enough stock!');
         }
       }
     };
@@ -171,7 +176,7 @@
                             <td>{product.category}</td>
                             <td>₱{product.price}</td>
                             <td>{getCurrentStock(product.id)}</td>
-                            <td>
+                            <td className='d-flex justify-content-center align-items-center'>
                             <input
                               type="number"
                               className="form-control"
@@ -179,7 +184,8 @@
                               onChange={(e) =>
                                 setQuantityInputs((prevInputs) => ({ ...prevInputs, [product.id]: e.target.value }))
                               }
-                              placeholder="Quantity"
+                               style={{width:'70px'}}
+                               min={1}
                             />
                           </td>
                           <td>

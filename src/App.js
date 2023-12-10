@@ -1,7 +1,7 @@
 // App.js
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Style from './Style.css';
+import './Style.css';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,26 +15,11 @@ import TransactionReport from './Pages/TransactionReport';
 
 import { Modal, Button } from 'react-bootstrap';
 
-
-// import React, { useState } from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import Product from './Pages/product';
-// import Home from './Pages/home';
-// import NavbarComponent from './Pages/navbar';
-// import Stock from './Pages/stock';
-// import Transactions from './Pages/transactions';
-// import Reports from './Pages/reports';
-// import CategoryManagement from './Pages/category';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-// import TransactionReport from './Pages/TransactionReport';
-
 function App() {
   const initialProducts = [
-    { id: '1', name: 'Hamburger', price: 50, stock: 300, category: 'Consumables' },
-    { id: '2', name: 'Laptop', price: 2000, stock: 10, category: 'TechWares' },
-    { id: '3', name: 'White T-Shirt', price: 120, stock: 40, category: 'Clothes' }
+    { id: 'PROD-GRP9-1', name: 'Hamburger', price: 50, stock: 300, category: 'Foods' },
+    { id: 'PROD-GRP9-2', name: 'Laptop', price: 23000, stock: 10, category: 'TechWares' },
+    { id: 'PROD-GRP9-3', name: 'White T-Shirt', price: 120, stock: 40, category: 'Clothes' }
     // Add more products as needed
   ];
 
@@ -101,19 +86,38 @@ function App() {
     setShowModal(!showModal);
   };
   
+  const [isReportsHovered, setReportsHovered] = useState(false);
+  const reportsButtonStyles = {
+    cursor: 'pointer',
+    width: '85%',
+    borderRadius: '20px',
+    minHeight: '85%',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    border: 'solid black 1px',
+    maxWidth: '200px',
+  };
+  
+
+  const salesData = [30, 40, 25, 50, 49, 21, 70, 51, 60, 40, 20, 15];
+
+  
 
   return (
     <>
-        <div style={{ width: '100%', height: '18%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.10)' }}>
-                  <div className='row py-2'>
-                    <div className='col-1 ' style={{width:'100px'}} >
-
-                    </div>
-                    <div className='col-9' >
-                      <h2 style={{fontWeight:'bolder'}}>Group 9</h2>
+<div className='border' style={{ width: '100%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.10)' }}>
+                  <div className='row border py-2'>
+                    <div className='col' >
+                      <h2 className='ms-3' style={{fontWeight:'bolder'}}>Group 9</h2>
                     </div>
                     <div className='col-2' >
-                      <div className='py-1'  onClick={toggleModal} style={{cursor: 'pointer' , width:'85%',borderRadius:'15px', border: 'solid black 1px'}}>
+                    <div
+                      className={`py-1 ${isReportsHovered ? 'hovered' : ''}`}
+                      onClick={toggleModal}
+                      onMouseEnter={() => setReportsHovered(true)}
+                      onMouseLeave={() => setReportsHovered(false)}
+                      style={{ ...reportsButtonStyles,
+                        transform: isReportsHovered ? 'scale(1.05)' : 'scale(1)', }}
+                      >                      
                       <FontAwesomeIcon className='ms-3' icon={faFileAlt}style={{ color: 'black' }} />
                         <span style={{fontSize:'13px'}} className='ms-3'>Transaction Reports</span>
                       </div>
@@ -136,20 +140,32 @@ function App() {
                   </div>
         </div>
 
-        <div className="d-flex" style={{ height: '85vh'}}>
-            <Tabs
-              defaultActiveKey="dashboard"
-              id="vertical-tab-example"
-              className="p-3 mb-2 fs-5 flex-column"
-              variant="pills"
-              style={{ width: '90px', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'}}
-            >
+        <div className="d-flex" style={{ height: '82vh', flexGrow: 1 }}>
+        <Tabs
+          defaultActiveKey="dashboard"
+          id="vertical-tab-example"
+          className="p-3 mb-2 fs-5 flex-column"
+          variant="pills"
+          style={{
+            flex: '0 0 auto', // This ensures the navigation bar doesn't grow
+            width: '90px',
+            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+          }}
+        >
               <Tab eventKey="dashboard" title={
                 <div className="d-flex align-items-center mb-3 mt-5">
                     <FontAwesomeIcon icon={faHome} style={{ color: 'black' }} />
                 </div>
               }>
-                <Dashboard />
+                <Dashboard
+                    products={products}
+                    categories={categories}
+                    addProduct={addProduct}
+                    deleteProduct={deleteProduct}
+                    updateProduct={updateProduct}
+                    updateStock={updateStock}
+                    salesData={salesData}
+                  />
               </Tab>
               <Tab eventKey="products" title={
                 <div className="d-flex align-items-center mb-3 mt-4">
@@ -169,21 +185,28 @@ function App() {
               <FontAwesomeIcon icon={faChartBar} style={{ color: 'black' }} />
               </div>
               } >
-                <CategoryManagement onSendArrayToCateg={handleCatList} categories={categories} setCategories={setCategories} addCategory={addCategory} deleteCategory={deleteCategory}/>
+                <CategoryManagement onSendArrayToCateg={handleCatList} 
+                categories={categories} 
+                setCategories={setCategories} 
+                addCategory={addCategory} 
+                deleteCategory={deleteCategory}/>
               </Tab>
               <Tab eventKey="Stock" title={
               <div className="d-flex align-items-center mb-3 mt-4">
               <FontAwesomeIcon icon={faCubes} style={{ color: 'black' }}/>
               </div>
               }>
-                <StockManagement products={products} updateStock={updateStock}/>
+                <StockManagement products={products} 
+                updateStock={updateStock}/>
               </Tab>
               <Tab eventKey="transaction" title={
               <div className="d-flex align-items-center mb-3 mt-4">
               <FontAwesomeIcon icon={faExchangeAlt} style={{ color: 'black' }}/>
               </div>
               } >
-                <TransactionManagement products={products} updateStock={updateStock} completeTransaction={completeTransaction}/>
+                <TransactionManagement products={products} 
+                updateStock={updateStock} 
+                completeTransaction={completeTransaction}/>
               </Tab>
               
               <Tab eventKey="report" title={
