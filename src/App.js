@@ -98,10 +98,6 @@ function App() {
   };
   
 
-  const salesData = [30, 40, 25, 50, 49, 21, 70, 51, 60, 40, 20, 15];
-
-  
-
   return (
     <>
 <div className='border' style={{ width: '100%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.10)' }}>
@@ -134,7 +130,7 @@ function App() {
                         </div>
                         <div className='col-2' >
 
-                            <span className='ms-3 ' style={{fontSize:'15px'}}>Filter  Products Category</span>
+                            <span className='ms-3 ' style={{fontSize:'15px'}}>Final Exam - React App</span>
 
                         </div>
                   </div>

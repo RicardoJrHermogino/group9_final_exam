@@ -152,7 +152,7 @@
 
 
           <div className="row">
-                  <div className="col-lg-10 col-md-8 col-sm-6 py-4 mx-auto " style={{backgroundColor:'#F2F2F2', borderRadius: '25px', width: '89%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'  }}>
+                  <div className="col-lg-10 col-md-8 col-sm-6 py-5 mx-auto " style={{ borderRadius: '25px', width: '89%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'  }}>
                       <div className='table-responsive'>
                       <table className=' text-center' style={{width:'100%', fontSize:'90%'}}>
 

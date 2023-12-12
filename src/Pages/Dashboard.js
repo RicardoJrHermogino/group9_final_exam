@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxOpen, faCubes, faChartBar, faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
-import { Modal, Button } from 'react-bootstrap';
-import ProductManagement from './ProductManagement';
+
 import Chart from 'react-apexcharts'; 
 
 const Dashboard = ({products, transactions}) => {
 
+  // ---------------------------------------------------------------------------------------------------------------------------------------------
+  // HOVER STYLES LANG YAA
   const [isHovered1, setHover1] = useState(false);
   const [isHovered2, setHover2] = useState(false);
   const [isHovered3, setHover3] = useState(false);
@@ -30,12 +31,12 @@ const Dashboard = ({products, transactions}) => {
 
 
 
-
+// ----------------------------------------------------------------------------------------------------------------------------------------------
+// BAR GRAPHS
   const groupedTransactions = [];
   for (const transaction of transactions) {
     let existingProduct = null;
   
-    // Check if the product already exists in groupedTransactions
     for (const groupedTransaction of groupedTransactions) {
       if (groupedTransaction.name === transaction.name) {
         existingProduct = groupedTransaction;
@@ -43,14 +44,13 @@ const Dashboard = ({products, transactions}) => {
       }
     }
   
-    // If the product exists, update its quantity, otherwise add a new entry
     if (existingProduct) {
       existingProduct.quantity += transaction.quantity;
     } else {
       groupedTransactions.push({
         name: transaction.name,
         quantity: transaction.quantity,
-        price: transaction.price, // Make sure to include the price property
+        price: transaction.price,
       });
     }
   }
@@ -69,7 +69,7 @@ const Dashboard = ({products, transactions}) => {
       bar: {
         borderRadius: 10,
         dataLabels: {
-          position: 'top', // top, center, bottom
+          position: 'top', 
         },
       },
     },
@@ -246,7 +246,7 @@ const Dashboard = ({products, transactions}) => {
                       onMouseEnter={() => setHover5(true)}
                       onMouseLeave={() => setHover5(false)}
               >
-                Bar Graph for Sales
+                <b className='ms-2' style={{fontSize:'14px'}}>Bar Graph for Sales</b>
                 <Chart options={barChartOptions} series={barChartOptions.series} type="bar" height={350} />
               </div>
             </div>
