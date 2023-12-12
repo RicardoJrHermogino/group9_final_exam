@@ -1,6 +1,8 @@
   import React, { useState } from 'react';
   import 'bootstrap/dist/css/bootstrap.min.css';
   import { Modal, Button } from 'react-bootstrap';
+  import toast from 'react-hot-toast';
+
 
   const StockManagement = ({ products, updateStock }) => {
     const [stockUpdates, setStockUpdates] = useState({});
@@ -33,8 +35,7 @@
           isNaN(stockValue) ||
           stockValue < 0
         ) {
-          // Show an alert if any input is not a valid non-negative number
-          alert('Please enter a valid non-negative stock value.');
+          toast.error('Please enter a valid non-negative stock value.');
           return; // Stop further execution of the function
         }
       }

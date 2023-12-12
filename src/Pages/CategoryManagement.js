@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button } from 'react-bootstrap';
+import toast from 'react-hot-toast';
+
 
 
 const CategoryManagement = ({ onSendArrayToCateg, categories, setCategories, addCategory, deleteCategory }) => {
@@ -15,10 +17,17 @@ const CategoryManagement = ({ onSendArrayToCateg, categories, setCategories, add
       onSendArrayToCateg(categories);
     }, [categories, onSendArrayToCateg]);
   
+
     const handleAddCategory = () => {
       if (newCategory.trim() !== '') {
-        addCategory(newCategory.trim());
-        setNewCategory('');
+        // Check if the category already exists (case-insensitive)
+        if (!categories.some(category => category.toLowerCase() === newCategory.trim().toLowerCase())) {
+          addCategory(newCategory.trim());
+          setNewCategory('');
+          toast.success("New category added.");
+        } else {
+          toast.error("Category already exists. Please enter a different category.");
+        }
       }
     };
   
@@ -63,7 +72,7 @@ const CategoryManagement = ({ onSendArrayToCateg, categories, setCategories, add
   return (
     <>
 
-    <div className="container-fluid border justify-content-center align-items-center mt-4" style={{width: '301%'}}>
+    <div className="container-fluid justify-content-center align-items-center mt-4" style={{width: '301%'}}>
         <div className="row text-center">
             <div className="col">
                 <h2 style={{fontWeight:'bold'}}>Category Management</h2>

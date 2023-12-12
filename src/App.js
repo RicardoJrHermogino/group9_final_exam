@@ -14,10 +14,13 @@ import StockManagement from './Pages/StockManagement';
 import TransactionReport from './Pages/TransactionReport';
 
 import { Modal, Button } from 'react-bootstrap';
+import { Toaster } from 'react-hot-toast';
+
+
 
 function App() {
   const initialProducts = [
-    { id: 'PROD-GRP9-1', name: 'Hamburger', price: 50, stock: 300, category: 'Foods' },
+    { id: 'PROD-GRP9-1', name: 'Hamburger', price: 50, stock: 300, category: 'Consumables' },
     { id: 'PROD-GRP9-2', name: 'Laptop', price: 23000, stock: 10, category: 'TechWares' },
     { id: 'PROD-GRP9-3', name: 'White T-Shirt', price: 120, stock: 40, category: 'Clothes' }
     // Add more products as needed
@@ -100,6 +103,8 @@ function App() {
 
   return (
     <>
+
+<Toaster />
 <div className='border' style={{ width: '100%', boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.10)' }}>
                   <div className='row border py-2'>
                     <div className='col' >

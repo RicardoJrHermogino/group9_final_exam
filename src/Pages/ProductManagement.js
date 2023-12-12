@@ -1,7 +1,7 @@
   import React, { useState } from 'react';
   import 'bootstrap/dist/css/bootstrap.min.css';
   import { Modal, Button } from 'react-bootstrap';
-
+  import toast from 'react-hot-toast';
 
 
 
@@ -39,8 +39,10 @@
           setProductID((prevProductID) => prevProductID + 1);
     
           setNewProduct({ name: '', price: '', stock: '', category: '' });
+
+          toast.success('Product added successfully!');
         } else {
-          alert("A product you're trying to add is  already exists.");
+          toast.error("A product you're trying to add is already exists.");
         }
       }
     };
