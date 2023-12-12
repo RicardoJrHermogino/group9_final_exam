@@ -139,6 +139,7 @@
                 className="form-control"
                 value={stockUpdates[selectedProduct?.id] !== undefined ? stockUpdates[selectedProduct?.id] : ''}
                 onChange={(e) => handleUpdateStock(selectedProduct?.id, e.target.value === '' ? '' : parseInt(e.target.value, 10))}
+                placeholder='Enter new stock'
               />
 
             </Modal.Body>

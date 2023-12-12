@@ -154,72 +154,92 @@
                       <Modal.Title>Edit Product</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                    <span>Product ID</span>
-                  <input
-                    readOnly
-                    type="text"
-                    id="prodID"
-                    className="form-control"
-                    value={"PROD-GRP9-" + productID}
-                    style={{  borderRadius: '15px', border: 'solid gray 0.5px' }}
-                    required
-                  />
-                      <label htmlFor="editProductName" className="form-label mt-2">
-                        Product Name:
-                      </label>
-                      <input
-                        type="text"
-                        id="editProductName"
-                        className="form-control"
-                        value={editingProduct.name}
-                        onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
-                        placeholder="Product Name"
-                        required
-                      />
+                  <div className='Container '>
+                          <div className='row  d-flex justify-content-center align-items-center '>
+                            <div className='col-6'>
+                                  <span className='ms-2'>Product ID</span>
+                                  <input
+                                    readOnly
+                                    type="text"
+                                    id="prodID"
+                                    className="form-control px-4"
+                                    value={editingProduct.id}
+                                    style={{  borderRadius: '18px', border: 'solid gray 0.5px' }}
+                                    required
+                                  />
+                            </div>
+                          </div>
 
-                      <label htmlFor="editProductPrice" className="form-label mt-2">
-                        Price:
-                      </label>
-                      <input
-                        type="number"
-                        id="editProductPrice"
-                        className="form-control"
-                        value={editingProduct.price}
-                        onChange={(e) => setEditingProduct({ ...editingProduct, price: parseFloat(e.target.value) || '' })}
-                        placeholder="Product Price"
-                        required
-                      />
+                          <div className='row  d-flex justify-content-center align-items-center p-3'>
+                              <div className='col-6'>
+                                    <span className='ms-2'>Name:</span>
+                                    <input
+                                      type="text"
+                                      id="editProductName"
+                                      className="form-control"
+                                      value={editingProduct.name}
+                                      onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
+                                      placeholder="Product Name"
+                                      style={{  borderRadius: '18px', border: 'solid gray 0.5px' }}                                      required
+                                    />
+                              </div>
+                              <div className='col-6'>
+                                    <span className='ms-2'>Price:</span>
+                                    <input
+                                      type="number"
+                                      id="editProductPrice"
+                                      className="form-control"
+                                      value={editingProduct.price}
+                                      onChange={(e) => setEditingProduct({ ...editingProduct, price: parseFloat(e.target.value) || '' })}
+                                      placeholder="Product Price"
+                                      style={{  borderRadius: '18px', border: 'solid gray 0.5px' }}
+                                      required
+                                    />
+                              </div>
+                          </div>
 
-                      <label htmlFor="editProductStock" className="form-label mt-2">
-                        Stock:
-                      </label>
-                      <input
-                        type="number"
-                        id="editProductStock"
-                        className="form-control"
-                        value={editingProduct.stock}
-                        onChange={(e) => setEditingProduct({ ...editingProduct, stock: parseFloat(e.target.value) || '' })}
-                        placeholder="Product Stock"
-                        required
-                      />
 
-                      <label htmlFor="editProductCategory" className="form-label mt-2">
-                        Category:
-                      </label>
-                      <select
-                        id="editProductCategory"
-                        className="form-select"
-                        value={editingProduct.category}
-                        onChange={(e) => setEditingProduct({ ...editingProduct, category: e.target.value })}
-                        required
-                      >
-                        <option value="" disabled>Select a category</option>
-                        {categories.map((category) => (
-                          <option key={category} value={category}>
-                            {category}
-                          </option>
-                        ))}
-                      </select>
+                          <div className='row  d-flex justify-content-center align-items-center p-3'>
+                              <div className='col-6'>
+                                      <span className='ms-2'>Stock:</span>
+                                      <input
+                                        type="number"
+                                        id="editProductStock"
+                                        className="form-control"
+                                        value={editingProduct.stock}
+                                        onChange={(e) => setEditingProduct({ ...editingProduct, stock: parseFloat(e.target.value) || '' })}
+                                        placeholder="Product Stock"
+                                        style={{  borderRadius: '18px', border: 'solid gray 0.5px' }}
+                                        required
+                                      />
+                              
+                              </div>
+                              <div className='col-6'>
+                                    <span className='ms-2'>Category:</span>
+                                    <select
+                                      id="editProductCategory"
+                                      className="form-select"
+                                      value={editingProduct.category}
+                                      onChange={(e) => setEditingProduct({ ...editingProduct, category: e.target.value })}
+                                      required
+                                      style={{  borderRadius: '18px', border: 'solid gray 0.5px' }}
+                                    >
+                                      <option value="" disabled>Select a category</option>
+                                      {categories.map((category) => (
+                                        <option key={category} value={category}>
+                                          {category}
+                                        </option>
+                                      ))}
+                                    </select>
+                              </div>
+                          </div>
+
+                      
+
+                      
+
+                      
+                      </div>
                     </Modal.Body>
                     <Modal.Footer>
                       <Button variant="success" onClick={handleUpdateProduct}>
@@ -263,7 +283,7 @@
                                   <td>{product.stock}</td>
                                   <td>{product.category}</td>
                                   <td> 
-                                  <button onClick={() => startEditing(product)} className="btn btn-sm btn-secondary" style={{ borderRadius: '15px', width: '30%' }}>
+                                  <button onClick={() => startEditing(product)} className="btn btn-sm btn-secondary" style={{ borderRadius: '15px', border:'0', width: '30%' }}>
                                     Edit
                                   </button>
                                   <button onClick={() => handleDeleteProduct(product.id)} className="btn btn-sm btn-secondary" style={{ borderRadius: '15px', width: '30%' }}>

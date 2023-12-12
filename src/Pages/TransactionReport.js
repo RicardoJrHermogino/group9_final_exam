@@ -103,7 +103,7 @@
                               </tbody>
                           </table>
                           <div className=" d-flex justify-content-center mt-4">
-                              <p>Total Transaction Price: ₱{totalTransactionPrice}</p>
+                              <p>Total Transaction Price: <span className='ms-3'>₱{totalTransactionPrice}</span></p>
                           </div>
                         </div>
                     </div>

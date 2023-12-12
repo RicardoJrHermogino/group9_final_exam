@@ -6,7 +6,7 @@ import { Modal, Button } from 'react-bootstrap';
 import ProductManagement from './ProductManagement';
 import Chart from 'react-apexcharts'; 
 
-const Dashboard = () => {
+const Dashboard = ({products, }) => {
 
   const [isHovered1, setHover1] = useState(false);
   const [isHovered2, setHover2] = useState(false);
@@ -20,6 +20,7 @@ const Dashboard = () => {
     minHeight: '130px',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.05)',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    
   };
   
   const hoverStyles = {
@@ -95,15 +96,6 @@ const Dashboard = () => {
         },
       },
     },
-    title: {
-      text: 'Monthly Inflation in Argentina, 2002',
-      floating: true,
-      offsetY: 330,
-      align: 'center',
-      style: {
-        color: '#444',
-      },
-    },
   };
 
 
@@ -111,7 +103,7 @@ const Dashboard = () => {
     series: [
       {
         name: 'Desktops',
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+        data: products.map((product) => product.stock),
       },
     ],
     chart: {
@@ -128,7 +120,7 @@ const Dashboard = () => {
       curve: 'straight',
     },
     title: {
-      text: 'Product Trends by Month',
+      text: 'Line Graph for Stocks',
       align: 'left',
     },
     grid: {
@@ -138,11 +130,12 @@ const Dashboard = () => {
       },
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      categories: products.map((product) => product.name),
     },
   };
-  return (
-        <div className="Container-fluid mt-5 " style={{ height: '100vh', width:'85vw', marginLeft:'5%'}}>
+  return (<>
+    
+        <div className="Container-fluid mt-5 " style={{ height: '100vh', width:'85vw', marginLeft:'5%'  }}>
           <div className="row " >
             <div className="col-md-6 col-lg-3 col-sm-10 mb-4 ">
               <div  className="p-3" 
@@ -244,7 +237,6 @@ const Dashboard = () => {
                       onMouseEnter={() => setHover6(true)}
                       onMouseLeave={() => setHover6(false)}
               >
-                Line Graph for Stocks
                 <Chart
                   options={lineChartOptions}
                   series={lineChartOptions.series}
@@ -265,7 +257,7 @@ const Dashboard = () => {
 
 
         </div>
-
+        </>
      
     
   );
