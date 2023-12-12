@@ -164,7 +164,7 @@ function App() {
                     deleteProduct={deleteProduct}
                     updateProduct={updateProduct}
                     updateStock={updateStock}
-                    salesData={salesData}
+                    transactions={transactions}
                   />
               </Tab>
               <Tab eventKey="products" title={

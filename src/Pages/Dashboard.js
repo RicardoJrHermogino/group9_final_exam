@@ -6,7 +6,7 @@ import { Modal, Button } from 'react-bootstrap';
 import ProductManagement from './ProductManagement';
 import Chart from 'react-apexcharts'; 
 
-const Dashboard = ({products, }) => {
+const Dashboard = ({products, transactions}) => {
 
   const [isHovered1, setHover1] = useState(false);
   const [isHovered2, setHover2] = useState(false);
@@ -29,10 +29,37 @@ const Dashboard = ({products, }) => {
   };
 
 
+
+
+  const groupedTransactions = [];
+  for (const transaction of transactions) {
+    let existingProduct = null;
+  
+    // Check if the product already exists in groupedTransactions
+    for (const groupedTransaction of groupedTransactions) {
+      if (groupedTransaction.name === transaction.name) {
+        existingProduct = groupedTransaction;
+        break;
+      }
+    }
+  
+    // If the product exists, update its quantity, otherwise add a new entry
+    if (existingProduct) {
+      existingProduct.quantity += transaction.quantity;
+    } else {
+      groupedTransactions.push({
+        name: transaction.name,
+        quantity: transaction.quantity,
+        price: transaction.price, // Make sure to include the price property
+      });
+    }
+  }
+
+
   const barChartOptions = {
     series: [{
       name: 'Inflation',
-      data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2],
+      data:  groupedTransactions.map((transaction) => transaction.quantity * transaction.price),
     }],
     chart: {
       height: 350,
@@ -49,7 +76,7 @@ const Dashboard = ({products, }) => {
     dataLabels: {
       enabled: true,
       formatter: function (val) {
-        return val + "%";
+        return "₱" + val ;
       },
       offsetY: -20,
       style: {
@@ -58,7 +85,7 @@ const Dashboard = ({products, }) => {
       },
     },
     xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      categories: groupedTransactions.map((transaction) => transaction.name),
       position: 'top',
       axisBorder: {
         show: false,
