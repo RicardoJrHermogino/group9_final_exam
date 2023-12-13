@@ -14,7 +14,8 @@ import StockManagement from './Pages/StockManagement';
 import TransactionReport from './Pages/TransactionReport';
 
 import { Modal, Button } from 'react-bootstrap';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 
 
@@ -38,11 +39,10 @@ function App() {
   };
 
   const addProduct = (newProduct) => {
-    if (newProduct.price > 0 && newProduct.stock > 0){
+    if (newProduct.price > 0 && newProduct.stock > 0) {
       setProducts([...products, newProduct]);
-    }
-    else{
-      alert('Please input valid price or stocks')
+    } else {
+      toast.error('Please input valid price or stocks'); 
     }
   };
 

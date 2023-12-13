@@ -22,10 +22,7 @@
         // Check for duplicate products
         const checkDupsProds = products.some(
           (product) =>
-            product.name === newProduct.name &&
-            product.price === newProduct.price &&
-            product.stock === newProduct.stock &&
-            product.category === newProduct.category
+            product.name === newProduct.name 
         );
     
         if (!checkDupsProds) {
@@ -40,9 +37,9 @@
     
           setNewProduct({ name: '', price: '', stock: '', category: '' });
 
-          toast.success('Product added successfully!');
         } else {
-          toast.error("A product you're trying to add is already exists.");
+          setNewProduct({ name: '', price: '', stock: '', category: '' });
+          toast.error("A product you're trying to add already exists.");
         }
       }
     };
@@ -67,8 +64,18 @@
 
       const handleUpdateProduct = () => {
         if (editingProduct && editingProduct.name && editingProduct.price !== '' && editingProduct.stock !== '' && editingProduct.category) {
+          if (editingProduct.price >= 0 && editingProduct.stock >= 0){
+
           updateProduct({ ...editingProduct });
           setEditingProduct(null);
+          toast.success("Product successfully updated.")
+          }
+          else{
+            toast.error("Encountered negative inputs")
+          }
+        }
+        else{
+          toast.error("Please fill out the inputs.")
         }
       };
 // ----------------------------------------------------------------------------------------------------------------------------    

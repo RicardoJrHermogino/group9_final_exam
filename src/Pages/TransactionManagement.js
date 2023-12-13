@@ -14,13 +14,16 @@ const TransactionManagement = ({ products, updateStock, completeTransaction: com
   const [showModal, setShowModal] = useState(false);
 
   const addToTransaction = (productId, quantity) => {
-        const validQuantity = parseInt(quantity, 10);
+    const validQuantity = parseInt(quantity, 10);
+
+    if (isNaN(validQuantity) || validQuantity < 1) {
+      toast.error('Please input a valid quantity (1 or more) to add this product to the cart.');
+      setQuantityInputs((prevInputs) => ({ ...prevInputs, [productId]: '' }));
+      return;
+    }
       
-        if (validQuantity < 1) {
-          toast.error('Please input 1 or more 1 quantity to add this product to the cart.');
-          return;
-        }
-      
+        // ---------------------------------------------------------------------------------
+        // ing iimod kung nasa cart na ang iaadd pa na product, kung nasa cart na, madagdag nalang san quantity didtu
         const existingProduct = transactions.find((item) => item.id === productId);
       
         if (existingProduct) {
@@ -39,10 +42,14 @@ const TransactionManagement = ({ products, updateStock, completeTransaction: com
       
             setQuantityInputs((prevInputs) => ({ ...prevInputs, [productId]: validQuantity }));
             toast.success('Successfully added to cart');
+
+            setQuantityInputs((prevInputs) => ({ ...prevInputs, [productId]: '' }));
           } else {
             toast.error('Invalid input or not enough stock!');
+            setQuantityInputs((prevInputs) => ({ ...prevInputs, [productId]: '' }));
           }
         }
+      
   };
 
   const removeFromTransaction = (productId) => {
@@ -63,6 +70,7 @@ const TransactionManagement = ({ products, updateStock, completeTransaction: com
 
     if (!isStockAvailable) {
       toast.error('Insufficient stock for one or more items in the transaction!');
+      
       return;
     }
 
