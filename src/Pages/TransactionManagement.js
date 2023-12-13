@@ -69,7 +69,7 @@ const TransactionManagement = ({ products, updateStock, completeTransaction: com
     });
 
     if (!isStockAvailable) {
-      toast.error('Insufficient stock for one or more items in the transaction!');
+      toast.error('Some items in your shopping cart are currently unavailable due to being out of stock.');
       
       return;
     }
