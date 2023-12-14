@@ -52,6 +52,7 @@
 
       const handleDeleteProduct = (productId) => {
         deleteProduct(productId);
+        toast.success("Sucessfully deleted.")
       };
 // ----------------------------------------------------------------------------------------------------------------------------
 

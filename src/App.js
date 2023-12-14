@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Style.css';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faCubes, faExchangeAlt, faChartBar, faFileAlt, faBoxOpen} from '@fortawesome/free-solid-svg-icons';
+
 import Dashboard from './Pages/Dashboard';
 import ProductManagement from './Pages/ProductManagement';
 import CategoryManagement from './Pages/CategoryManagement';
@@ -15,7 +15,8 @@ import TransactionReport from './Pages/TransactionReport';
 
 import { Modal, Button } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 
 
@@ -78,7 +79,7 @@ function App() {
     const isCategoryUsed = products.some((product) => product.category === category);
 
     if (isCategoryUsed) {
-      alert(`Cannot delete category "${category}" as it is associated with one or more products.`);
+      toast.error(`Cannot delete category "${category}" as it is associated with one or more products.`);
       return;
     }
 

@@ -20,7 +20,6 @@ const CategoryManagement = ({ onSendArrayToCateg, categories, setCategories, add
 
     const handleAddCategory = () => {
       if (newCategory.trim() !== '') {
-        // Check if the category already exists (case-insensitive)
         if (!categories.some(category => category.toLowerCase() === newCategory.trim().toLowerCase())) {
           addCategory(newCategory.trim());
           setNewCategory('');
@@ -52,9 +51,10 @@ const CategoryManagement = ({ onSendArrayToCateg, categories, setCategories, add
         setCategToEdit(-1);
         setNewCategName('');
         setShowEditModal(false);
+        toast.success('Sucessfully updated.');
       } else {
         // Handle the case where the input is empty
-        alert('Category name cannot be empty.');
+        toast.error('Category name cannot be empty.');
       }
     }
   

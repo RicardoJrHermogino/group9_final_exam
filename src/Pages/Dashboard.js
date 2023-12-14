@@ -58,7 +58,7 @@ const Dashboard = ({products, transactions}) => {
 
   const barChartOptions = {
     series: [{
-      name: 'Inflation',
+      name: 'Sales',
       data:  groupedTransactions.map((transaction) => transaction.quantity * transaction.price),
     }],
     chart: {
@@ -129,7 +129,7 @@ const Dashboard = ({products, transactions}) => {
   const lineChartOptions = {
     series: [
       {
-        name: 'Desktops',
+        name: 'Stocks',
         data: products.map((product) => product.stock),
       },
     ],
