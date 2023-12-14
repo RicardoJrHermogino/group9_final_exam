@@ -65,11 +65,13 @@ const TransactionManagement = ({ products, updateStock, completeTransaction: com
 
     const isStockAvailable = transactions.every((item) => {
       const productToAdd = products.find((product) => product.id === item.id);
+      toast.success("Successfully bought.")
       return productToAdd.stock - item.quantity >= 0;
+      
     });
 
     if (!isStockAvailable) {
-      toast.error('Some items in your shopping cart are currently unavailable due to being out of stock.');
+      toast.error('Some items in your cart are currently unavailable due to being out of stock.');
       
       return;
     }
@@ -228,7 +230,7 @@ const TransactionManagement = ({ products, updateStock, completeTransaction: com
             <Modal.Footer>
               {transactions.length > 0 && (
                 <button className="btn btn-success" onClick={handleCompleteTransaction}>
-                  Place order
+                  Buy
                 </button>
               )}
               <Button variant="secondary" onClick={toggleModal}>

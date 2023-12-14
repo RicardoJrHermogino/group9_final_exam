@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxOpen, faCubes, faChartBar, faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
@@ -33,33 +33,46 @@ const Dashboard = ({products, transactions}) => {
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 // BAR GRAPHS
-  const groupedTransactions = [];
-  for (const transaction of transactions) {
-    let existingProduct = null;
-  
-    for (const groupedTransaction of groupedTransactions) {
-      if (groupedTransaction.name === transaction.name) {
-        existingProduct = groupedTransaction;
-        break;
+const [groupedTransactions, setGroupedTransactions] = useState([]);
+
+  useEffect(() => {
+    updateGroupedTransactions();
+  }, [transactions, products]);
+
+  const updateGroupedTransactions = () => {
+    const updatedGroupedTransactions = [];
+
+    for (const transaction of transactions) {
+      let existingProduct = null;
+
+      for (const groupedTransaction of updatedGroupedTransactions) {
+        if (groupedTransaction.name === transaction.name) {
+          existingProduct = groupedTransaction;
+          break;
+        }
+      }
+
+      if (existingProduct) {
+        existingProduct.quantity += transaction.quantity;
+        existingProduct.total += transaction.quantity * transaction.price; // Update total with new price
+      } else {
+        updatedGroupedTransactions.push({
+          name: transaction.name,
+          quantity: transaction.quantity,
+          price: transaction.price,
+          total: transaction.quantity * transaction.price,
+        });
       }
     }
-  
-    if (existingProduct) {
-      existingProduct.quantity += transaction.quantity;
-    } else {
-      groupedTransactions.push({
-        name: transaction.name,
-        quantity: transaction.quantity,
-        price: transaction.price,
-      });
-    }
-  }
+
+    setGroupedTransactions(updatedGroupedTransactions);
+  };
 
 
   const barChartOptions = {
     series: [{
       name: 'Sales',
-      data:  groupedTransactions.map((transaction) => transaction.quantity * transaction.price),
+      data:  groupedTransactions.map((transaction) => transaction.total),
     }],
     chart: {
       height: 350,
@@ -119,7 +132,7 @@ const Dashboard = ({products, transactions}) => {
       labels: {
         show: false,
         formatter: function (val) {
-          return val + "%";
+          return "₱" + val ;
         },
       },
     },
@@ -275,13 +288,7 @@ const Dashboard = ({products, transactions}) => {
 
             
           </div>
-
-
-
-
-
-
-
+                
 
         </div>
         </>

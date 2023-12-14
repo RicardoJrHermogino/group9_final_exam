@@ -41,6 +41,16 @@ const CategoryManagement = ({ onSendArrayToCateg, categories, setCategories, add
     }
   
     function editfunc(cat) {
+      if (newCategory.trim() !== '') {
+        if (!categories.some(category => category.toLowerCase() === newCategory.trim().toLowerCase())) {
+          addCategory(newCategory.trim());
+          setNewCategory('');
+          toast.success("New category added.");
+        } else {
+          toast.error("Category already exists. Please enter a different category.");
+        }
+        return;
+      }
       const indexNo = categories.findIndex((cate) => cate === cat);
     
       if (indexNo !== -1 && newCategName.trim() !== '') {

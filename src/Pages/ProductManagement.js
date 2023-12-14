@@ -22,7 +22,7 @@
         // Check for duplicate products
         const checkDupsProds = products.some(
           (product) =>
-            product.name === newProduct.name 
+            product.name.toLowerCase() === newProduct.name.toLowerCase() 
         );
     
         if (!checkDupsProds) {
@@ -39,7 +39,7 @@
 
         } else {
           setNewProduct({ name: '', price: '', stock: '', category: '' });
-          toast.error("A product you're trying to add already exists.");
+          toast.error("The product you are trying to add already exists");
         }
       }
     };
@@ -64,21 +64,49 @@
 
 
       const handleUpdateProduct = () => {
-        if (editingProduct && editingProduct.name && editingProduct.price !== '' && editingProduct.stock !== '' && editingProduct.category) {
-          if (editingProduct.price >= 0 && editingProduct.stock >= 0){
-
-          updateProduct({ ...editingProduct });
-          setEditingProduct(null);
-          toast.success("Product successfully updated.")
-          }
-          else{
-            toast.error("Encountered negative inputs")
-          }
-        }
-        else{
-          toast.error("Please fill out the inputs.")
-        }
+            if (
+              editingProduct &&
+              editingProduct.name &&
+              editingProduct.price !== '' &&
+              editingProduct.stock !== '' &&
+              editingProduct.category
+            ) {
+                    const checkDupsProds = products.some(
+                      (product) =>
+                        product.name.toLowerCase() === editingProduct.name.toLowerCase() &&
+                        product.id !== editingProduct.id
+                    );
+              
+                    if (!checkDupsProds) {
+                              if (editingProduct.price >= 0 && editingProduct.stock >= 0) {
+                                  updateProduct({ ...editingProduct });
+                                  setEditingProduct(null);
+                                  toast.success('Product successfully updated.');
+                                  return;
+                              }
+                              else{
+                                toast.error('Encountered negative input/s')
+                              }
+                    }           
+                    else {
+                      toast.error('Product already existed.');
+                    }
+                  
+                
+                  }  
+                  
+                  
+            else {
+              toast.error('Please fill out the fields.');
+            }
+          
+      
+      
+      
+      
+      
       };
+      
 // ----------------------------------------------------------------------------------------------------------------------------    
     return (
       <>
