@@ -32,7 +32,7 @@ const Dashboard = ({products, transactions}) => {
 
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
-// BAR GRAPHS
+// BAR GRAPH LANG YAA
 const [groupedTransactions, setGroupedTransactions] = useState([]);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const [groupedTransactions, setGroupedTransactions] = useState([]);
 
       if (existingProduct) {
         existingProduct.quantity += transaction.quantity;
-        existingProduct.total += transaction.quantity * transaction.price; // Update total with new price
+        existingProduct.total += transaction.quantity * transaction.price; 
       } else {
         updatedGroupedTransactions.push({
           name: transaction.name,
@@ -139,6 +139,12 @@ const [groupedTransactions, setGroupedTransactions] = useState([]);
   };
 
 
+  // ----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+  // ----------------------------------------------------------------------------------------------------------------------------------------------
+// LINE GRAPH LANG YAA
   const lineChartOptions = {
     series: [
       {
@@ -173,6 +179,9 @@ const [groupedTransactions, setGroupedTransactions] = useState([]);
       categories: products.map((product) => product.name),
     },
   };
+
+  // ----------------------------------------------------------------------------------------------------------------------------------------------
+
   return (<>
     
         <div className="Container-fluid mt-5 " style={{ height: '100vh', width:'85vw', marginLeft:'5%'  }}>
